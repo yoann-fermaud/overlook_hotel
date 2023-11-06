@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9080:8080
+  database:
+    image: postgres:${POSTGRES_VERSION:-13}-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-overlook_hotel}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
+      POSTGRES_USER: ${POSTGRES_USER:-spring}
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+    ports:
+          - 49158:5432
+volumes:
+###> doctrine/doctrine-bundle ###
+  db-data:
+###< doctrine/doctrine-bundle ###
